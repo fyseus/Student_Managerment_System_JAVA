@@ -1,0 +1,244 @@
+public class Student_Main extends JPanel implements Runnable{
+
+	/**
+	 * Create the panel.
+	 */
+	JButton btn01,btn02,btn03,btn04;
+	JFrame frm;
+	JLabel lb,lb2,lb3;
+	Student_Search searchPanel;
+	Student_Borrowed borrowedPanel;
+	Student_History historyPanel;
+	Student_Space spacePanel;
+	private JButton btn05;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField txtEmail;
+	
+	String Name,Student_number,email;//用户姓名、学号、email
+	
+	public Student_Main(JFrame fram) {
+		for (int i = 0; i < 100; i++) {
+            x[i] = new Random().nextInt(800) + 1;
+            y[i] = new Random().nextInt(600) + 1;
+        }
+		frm=fram;
+		searchPanel=new Student_Search(frm,this);
+		borrowedPanel=new Student_Borrowed(frm,this);
+		historyPanel=new Student_History(frm,this);
+		spacePanel=new Student_Space(frm,this);
+		searchPanel.setBounds(0,0,800,1000);
+		borrowedPanel.setBounds(0,0,800,1000);
+		historyPanel.setBounds(0,0,800,1000);
+		PanelCreat();
+	}
+	void PanelCreat() {
+		setLayout(null);
+		setSize(1000,800);
+		ImageIcon back=new ImageIcon("src/image/return.png");
+        btn01 = new JButton("返回", back); 
+        btn01.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.exit(1);
+        	}
+        });
+        btn01.setBounds(0, 0, 90, 90);
+        add(btn01);
+        ImageIcon search01=new ImageIcon("src/image/Search02.jpg");
+        btn02 = new JButton("搜索书籍",search01);
+        btn02.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		frm.setContentPane(searchPanel);
+        		frm.setVisible(true);
+        	}
+        });
+        btn02.setBounds(20, 100, 100, 30);
+        add(btn02);
+        ImageIcon search02=new ImageIcon("src/image/Search01.jpg");
+        btn03 = new JButton("已借书籍",search02);
+        btn03.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		frm.setContentPane(borrowedPanel);
+        		frm.setVisible(true);
+        	}
+        });
+        btn03.setBounds(170,100,100,30);
+        add(btn03);
+        ImageIcon search03=new ImageIcon("src/image/Search03.jpg");
+        btn04 = new JButton("借书历史",search03);
+        btn04.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		frm.setContentPane(historyPanel);
+        		frm.setVisible(true);
+        	}
+        });
+        btn04.setBounds(320,100,100,30);
+        add(btn04);
+        ImageIcon link=new ImageIcon("src/image/link.png");
+    	JButton btnLink = new JButton("\u77E5\u7F51",link);
+    	btnLink.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			if(java.awt.Desktop.isDesktopSupported()){            
+    				try {                //创建一个URI实例                
+    					java.net.URI uri = java.net.URI.create("https://www.cnki.net/");      
+    					java.awt.Desktop dp = java.awt.Desktop.getDesktop();            
+    					if(dp.isSupported(java.awt.Desktop.Action.BROWSE)){//获取系统默认浏览器打开链接                   
+    						dp.browse(uri);                  
+    						}          
+    					} catch (java.io.IOException e2) {//此为无法获取系统默认浏览器           
+    						
+    					} 
+    				}
+    			}
+    	});
+    	btnLink.setBounds(600, 40, 145, 50);
+    	add(btnLink);
+    	ImageIcon search04=new ImageIcon("src/image/Search04.jpg");
+    	btn05 = new JButton("\u7A7A\u95F4\u9884\u7EA6", search04);
+    	btn05.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			frm.setContentPane(spacePanel);
+        		frm.setVisible(true);
+    		}
+    	});
+    	btn05.setBounds(470, 100, 100, 30);
+    	add(btn05);
+    	
+    	textField = new JTextField();
+    	textField.setFont(new Font("微软雅黑", Font.BOLD, 18));
+    	textField.setForeground(Color.BLUE);
+    	textField.setHorizontalAlignment(SwingConstants.CENTER);
+    	textField.setText("\u53CB\u60C5\u94FE\u63A5(\u77E5\u7F51)");
+    	textField.setEditable(false);
+    	textField.setBounds(600, 15, 145, 25);
+    	textField.setOpaque(false);
+    	add(textField);
+    	textField.setColumns(10);
+    	
+    	textField_1 = new JTextField();
+    	textField_1.setFont(new Font("华文彩云", Font.BOLD, 18));
+    	textField_1.setText("\u7528\u6237\u59D3\u540D\uFF1A"+Name);
+    	textField_1.setEditable(false);
+    	textField_1.setBounds(320, 208, 250, 30);
+    	add(textField_1);
+    	textField_1.setColumns(10);
+    	
+    	textField_2 = new JTextField();
+    	textField_2.setFont(new Font("华文彩云", Font.BOLD, 18));
+    	textField_2.setText("\u5B66\u53F7\uFF1A"+Student_number);
+    	textField_2.setEditable(false);
+    	textField_2.setColumns(10);
+    	textField_2.setBounds(320, 245, 250, 30);
+    	add(textField_2);
+    	
+    	txtEmail = new JTextField();
+    	txtEmail.setFont(new Font("华文彩云", Font.BOLD, 18));
+    	txtEmail.setText("Email\uFF1A"+email);
+    	txtEmail.setEditable(false);
+    	txtEmail.setColumns(10);
+    	txtEmail.setBounds(320, 288, 250, 30);
+    	add(txtEmail);
+    	
+        ImageIcon background=new ImageIcon("src/image/Library_main_2.jpg");
+    	lb = new JLabel(background);
+    	lb.setIcon(background);
+    	lb.setBounds(0,0,1000,800);
+    	ImageIcon logo=new ImageIcon("src/image/3.png");
+    	lb2 = new JLabel(logo);
+    	lb2.setIcon(logo);
+    	lb2.setBounds(0,0,1800,200);
+    	ImageIcon p1=new ImageIcon("src/image/Library_main_1.jpg");
+    	lb3 = new JLabel(p1);
+    	lb3.setIcon(p1);
+    	lb3.setBounds(0,0,400,600);
+
+        
+    	add(lb3);
+    	add(lb2);
+    	add(lb);
+    	
+	}
+	public void UpdateAll() {
+		searchPanel.Update();
+		historyPanel.Update();
+		borrowedPanel.Update();
+	}
+	public Student_Search getSearchPanel() {
+		return searchPanel;
+	}
+	public void setSearchPanel(Student_Search searchPanel) {
+		this.searchPanel = searchPanel;
+	}
+	public Student_Borrowed getBorrowedPanel() {
+		return borrowedPanel;
+	}
+	public void setBorrowedPanel(Student_Borrowed borrowedPanel) {
+		this.borrowedPanel = borrowedPanel;
+	}
+	public Student_History getHistoryPanel() {
+		return historyPanel;
+	}
+	public void setHistoryPanel(Student_History historyPanel) {
+		this.historyPanel = historyPanel;
+	}
+	public Student_Space getSpacePanel() {
+		return spacePanel;
+	}
+	public void setSpacePanel(Student_Space spacePanel) {
+		this.spacePanel = spacePanel;
+	}
+	
+	
+	 int[] x = new int[300];
+	    int[] y = new int[300];
+	    int[] a = new int[300];
+
+	    public int random(int a){
+	        return (int)(Math.random()*a);
+	    }
+
+
+	    @Override
+	    public void paint(Graphics g) {
+	    	super.paint(g);
+	        //设置背景色
+	        //setBackground();
+	        //设置画笔的背景
+	        g.setColor(Color.white);
+	        //画星星飘落
+	        for (int i = 0; i < 300; i++) {
+	            g.drawString("*",x[i],y[i]);
+	            for (int j = 0; j < a[i]; j++) {
+	                g.drawString("*",x[i],600 - j*3);
+	            }
+	        }
+
+	        //画月亮
+	        //g.fillOval(530,60,50,50);
+	        //g.setColor(Color.black);
+	        //g.fillOval(550,60,50,50);
+
+
+	    }
+
+	    @Override
+	    public void run() {
+	        while(true){
+	            for (int i = 0; i < y.length; i++) {
+	                if(y[i]<=600){
+	                    y[i] ++;
+	                }else{
+	                    a[i] ++;
+	                    y[i] = 0;
+	                }
+	            }
+	            repaint();
+	            try {
+	                Thread.sleep(10);
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+}
